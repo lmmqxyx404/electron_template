@@ -1,0 +1,59 @@
+{
+  "name": "electron-template",
+  "version": "0.1.0",
+  "description": "A ready-to-use Electron + React + TypeScript template inspired by Heroic Games Launcher",
+  "private": true,
+  "main": "dist/main/index.js",
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf dist release",
+    "dev": "npm run clean && npm run build:main && npm run build:preload && run-p dev:main dev:preload dev:renderer dev:electron",
+    "dev:main": "tsc -p tsconfig.main.json --watch --preserveWatchOutput",
+    "dev:preload": "tsc -p tsconfig.preload.json --watch --preserveWatchOutput",
+    "dev:renderer": "vite",
+    "dev:electron": "nodemon --watch dist/main --watch dist/preload --exec \"wait-on dist/main/index.js dist/preload/index.js tcp:5173 && electron .\"",
+    "build": "npm run clean && npm run build:main && npm run build:preload && npm run build:renderer && electron-builder",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:preload": "tsc -p tsconfig.preload.json",
+    "build:renderer": "vite build",
+    "start": "electron .",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "build": {
+    "appId": "com.example.electrontemplate",
+    "productName": "Electron Template",
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "dist/main/index.js"
+    },
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^29.2.0",
+    "electron-builder": "^24.9.1",
+    "nodemon": "^3.0.3",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4",
+    "wait-on": "^7.0.1"
+  }
+}

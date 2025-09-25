@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist/main",
+    "module": "CommonJS",
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "types": ["node", "electron"]
+  },
+  "include": ["src/main/**/*"],
+  "references": []
+}

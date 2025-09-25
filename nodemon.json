@@ -1,0 +1,6 @@
+{
+  "watch": ["dist/main", "dist/preload"],
+  "ext": "js",
+  "delay": "1000",
+  "exec": "wait-on dist/main/index.js dist/preload/index.js tcp:5173 && electron ."
+}

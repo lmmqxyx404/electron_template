@@ -5,17 +5,12 @@
   "private": true,
   "main": "dist/main/index.js",
   "type": "module",
+  "packageManager": "pnpm@10.9.0",
   "scripts": {
     "clean": "rimraf dist release",
-    "dev": "npm run clean && npm run build:main && npm run build:preload && run-p dev:main dev:preload dev:renderer dev:electron",
-    "dev:main": "tsc -p tsconfig.main.json --watch --preserveWatchOutput",
-    "dev:preload": "tsc -p tsconfig.preload.json --watch --preserveWatchOutput",
-    "dev:renderer": "vite",
-    "dev:electron": "nodemon --watch dist/main --watch dist/preload --exec \"wait-on dist/main/index.js dist/preload/index.js tcp:5173 && electron .\"",
-    "build": "npm run clean && npm run build:main && npm run build:preload && npm run build:renderer && electron-builder",
-    "build:main": "tsc -p tsconfig.main.json",
-    "build:preload": "tsc -p tsconfig.preload.json",
-    "build:renderer": "vite build",
+    "dev": "electron-vite dev --watch",
+    "build": "rimraf dist release && electron-vite build && electron-builder",
+    "preview": "electron-vite preview",
     "start": "electron .",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
@@ -38,22 +33,27 @@
     "node": ">=18"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^5.17.1",
+    "@mui/material": "^5.17.1",
+    "i18next": "^22.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^12.3.1",
+    "react-router-dom": "^6.30.0",
+    "zustand": "^4.5.6"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react": "^4.2.1",
-    "concurrently": "^8.2.2",
-    "electron": "^29.2.0",
-    "electron-builder": "^24.9.1",
-    "nodemon": "^3.0.3",
-    "npm-run-all": "^4.1.5",
+    "@types/node": "^22.15.18",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "electron": "^36.2.1",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^3.1.0",
     "rimraf": "^5.0.5",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.4",
-    "wait-on": "^7.0.1"
+    "typescript": "^5.8.3",
+    "vite": "^5.4.10"
   }
 }

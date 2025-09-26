@@ -7,6 +7,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
       "@main/*": ["main/*"],
@@ -14,9 +15,11 @@
       "@renderer/*": ["renderer/*"]
     }
   },
-  "references": [
-    { "path": "./tsconfig.main.json" },
-    { "path": "./tsconfig.preload.json" },
-    { "path": "./tsconfig.renderer.json" }
-  ]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "electron.vite.config.ts",
+    "vite.config.ts"
+  ],
+  "exclude": ["dist", "release"]
 }

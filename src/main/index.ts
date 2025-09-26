@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import path from 'node:path';
 
-const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
+const rendererDevServerUrl = process.env['ELECTRON_RENDERER_URL'];
+const isDev = Boolean(rendererDevServerUrl) || !app.isPackaged;
 
 if (!app.requestSingleInstanceLock()) {
   app.quit();
@@ -24,8 +25,8 @@ const createWindow = async () => {
     mainWindow.show();
   });
 
-  if (isDev) {
-    await mainWindow.loadURL('http://127.0.0.1:5173');
+  if (rendererDevServerUrl) {
+    await mainWindow.loadURL(rendererDevServerUrl);
     mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
     const rendererPath = path.join(__dirname, '../renderer/index.html');

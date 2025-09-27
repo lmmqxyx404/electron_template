@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import path from 'node:path';
+import { existsSync } from 'node:fs';
 
 const rendererDevServerUrl = process.env['ELECTRON_RENDERER_URL'];
 const isDev = Boolean(rendererDevServerUrl) || !app.isPackaged;
@@ -9,11 +10,14 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 const createWindow = async () => {
+  const preloadJsPath = path.join(__dirname, '../preload/index.js');
+  const preloadMjsPath = path.join(__dirname, '../preload/index.mjs');
+  const preloadPath = existsSync(preloadJsPath) ? preloadJsPath : preloadMjsPath;
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
+      preload: preloadPath,
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: false
@@ -72,3 +76,4 @@ app.whenReady().then(() => {
 
   void createWindow();
 });
+

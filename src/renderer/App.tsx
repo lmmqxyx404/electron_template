@@ -46,9 +46,6 @@ function App() {
         <p>{message}</p>
       </section>
       <section className="links">
-        <a href="https://heroicgameslauncher.com" target="_blank" rel="noreferrer">
-          Visit Heroic Games Launcher
-        </a>
         <a href="https://www.electronjs.org/docs/latest/" target="_blank" rel="noreferrer">
           Electron Documentation
         </a>
